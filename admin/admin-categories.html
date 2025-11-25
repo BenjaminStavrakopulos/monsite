@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Categorías - HairIA Admin</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="../images/logo.jpg" alt="HairIA Admin">
+                <h2>Panel Admin</h2>
+            </div>
+            <nav class="admin-nav">
+                <a href="admin.html" class="nav-item">📊 Dashboard</a>
+                <a href="admin-products.html" class="nav-item">🛍️ Productos</a>
+                <a href="admin-categories.html" class="nav-item active">📁 Categorías</a>
+            </nav>
+            <div class="admin-footer">
+                <button onclick="logoutUser()" class="logout-btn">🚪 Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="admin-welcome">
+                    <h1>Gestión de Categorías</h1>
+                    <p>Organiza tus productos por categorías</p>
+                </div>
+                <div class="admin-actions">
+                    <button class="btn-primary" onclick="showCategoryForm()">+ Nueva Categoría</button>
+                </div>
+            </header>
+
+            <!-- Lista de Categorías -->
+            <div class="categories-grid-admin">
+                <div id="categoriesList">
+                    <!-- Categorías se cargan dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Formulario de Categoría -->
+            <div class="form-modal" id="categoryFormModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="categoryFormTitle">Nueva Categoría</h3>
+                        <button class="close-modal" onclick="hideCategoryForm()">×</button>
+                    </div>
+                    <form id="categoryForm">
+                        <input type="hidden" id="categoryId">
+                        
+                        <div class="form-group">
+                            <label>Nombre de la Categoría *</label>
+                            <input type="text" id="categoryName" required placeholder="Ej: Shampoos, Tratamientos...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>ID de la Categoría *</label>
+                            <input type="text" id="categoryIdInput" required placeholder="Ej: shampoo, tratamiento">
+                            <small>Usa solo letras minúsculas y sin espacios</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Color de la Categoría</label>
+                            <input type="color" id="categoryColor" value="#1a1a1a">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea id="categoryDescription" rows="3" placeholder="Describe esta categoría..."></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" onclick="hideCategoryForm()">Cancelar</button>
+                            <button type="submit" class="btn-primary">Guardar Categoría</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin-categories.js"></script>
+</body>
+</html>

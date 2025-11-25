@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - HairIA</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="../images/logo.jpg" alt="HairIA Admin">
+                <h2>Panel Admin</h2>
+                <nav class="admin-nav">
+                    <!-- CORREGIR ESTO -->
+                    <a href="#" class="nav-item active">📊 Dashboard</a>
+                    <a href="admin-products.html" class="nav-item">🛍️ Productos</a>
+                    <a href="admin-categories.html" class="nav-item">📁 Categorías</a>
+                </nav>
+                <div class="admin-footer">
+                    <button onclick="logoutUser()" class="logout-btn">🚪 Cerrar Sesión</button>
+                </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="admin-welcome">
+                    <h1>Panel de Administración</h1>
+                    <p>Bienvenido al centro de control de HairIA</p>
+                </div>
+            </header>
+
+            <!-- Stats Dashboard -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🛍️</div>
+                    <div class="stat-info">
+                        <h3 id="totalProducts">0</h3>
+                        <p>Total Productos</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-info">
+                        <h3 id="featuredProducts">0</h3>
+                        <p>Destacados</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📁</div>
+                    <div class="stat-info">
+                        <h3 id="totalCategories">0</h3>
+                        <p>Categorías</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-info">
+                        <h3 id="lowStockProducts">0</h3>
+                        <p>Stock Bajo</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions-grid">
+                <a href="admin-products.html" class="action-card">
+                    <div class="action-icon">🛍️</div>
+                    <h3>Gestionar Productos</h3>
+                    <p>Agregar, editar o eliminar productos del catálogo</p>
+                    <span class="action-arrow">→</span>
+                </a>
+
+                <a href="admin-categories.html" class="action-card">
+                    <div class="action-icon">📁</div>
+                    <h3>Gestionar Categorías</h3>
+                    <p>Organizar productos por categorías</p>
+                    <span class="action-arrow">→</span>
+                </a>
+
+                <div class="action-card coming-soon">
+                    <div class="action-icon">📦</div>
+                    <h3>Gestión de Órdenes</h3>
+                    <p>Próximamente - Ver y gestionar pedidos</p>
+                    <span class="action-badge">Próximo</span>
+                </div>
+
+                <div class="action-card coming-soon">
+                    <div class="action-icon">👥</div>
+                    <h3>Gestión de Clientes</h3>
+                    <p>Próximamente - Administrar usuarios</p>
+                    <span class="action-badge">Próximo</span>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h3>Actividad Reciente</h3>
+                <div class="activity-list" id="recentActivity">
+                    <div class="activity-item">
+                        <div class="activity-icon">🛍️</div>
+                        <div class="activity-content">
+                            <p>Bienvenido al Panel de Administración</p>
+                            <span class="activity-time">Recién iniciado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+
+</html>

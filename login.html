@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Monsite</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Logo -->
+            <div class="auth-logo">
+                <img src="images/logo.jpg" alt="HairIA">
+                <h1>Monsite</h1>
+            </div>
+
+            <!-- Pestañas Login/Registro -->
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Iniciar Sesión</button>
+                <button class="tab-btn" data-tab="register">Registrarse</button>
+            </div>
+
+            <!-- Formulario Login -->
+            <form class="auth-form active" id="loginForm" data-form="login">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required placeholder="tu@email.com">
+                    <span class="input-icon">✉️</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                    <span class="input-icon">🔒</span>
+                    <button type="button" class="toggle-password" data-target="loginPassword">👁️</button>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="checkmark"></span>
+                        Recordar sesión
+                    </label>
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    <span class="btn-text">Ingresar</span>
+                    <span class="btn-loading">⏳</span>
+                </button>
+
+                <div class="auth-divider">
+                    <span>o continuar con</span>
+                </div>
+
+                <button type="button" class="social-btn google-btn">
+                    <span>Google</span>
+                </button>
+
+                <div class="auth-mode-switcher">
+                    <p>¿Eres administrador? 
+                        <a href="#" id="switchToAdminMode">Acceder como administrador</a>
+                    </p>
+                </div>
+            </form>
+
+            <!-- Formulario Registro -->
+            <form class="auth-form" id="registerForm" data-form="register">
+                <div class="form-group">
+                    <label for="registerName">Nombre Completo</label>
+                    <input type="text" id="registerName" required placeholder="Juan Pérez">
+                    <span class="input-icon">👤</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required placeholder="tu@email.com">
+                    <span class="input-icon">✉️</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña</label>
+                    <input type="password" id="registerPassword" required placeholder="••••••••">
+                    <span class="input-icon">🔒</span>
+                    <button type="button" class="toggle-password" data-target="registerPassword">👁️</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirmar Contraseña</label>
+                    <input type="password" id="registerConfirmPassword" required placeholder="••••••••">
+                    <span class="input-icon">🔒</span>
+                    <button type="button" class="toggle-password" data-target="registerConfirmPassword">👁️</button>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="acceptTerms" required>
+                        <span class="checkmark"></span>
+                        Acepto los <a href="#">términos y condiciones</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    <span class="btn-text">Crear Cuenta</span>
+                    <span class="btn-loading">⏳</span>
+                </button>
+
+                <div class="auth-mode-switcher">
+                    <p>¿Eres administrador? 
+                        <a href="#" id="switchToAdminModeRegister">Acceder como administrador</a>
+                    </p>
+                </div>
+            </form>
+
+            <!-- Login Administrador -->
+            <form class="auth-form admin-form" id="adminForm" data-form="admin">
+                <div class="admin-badge">
+                    <span>🔧 Panel Administrador</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="adminEmail">Email Administrador</label>
+                    <input type="email" id="adminEmail" required placeholder="admin@hairia.com">
+                    <span class="input-icon">⚙️</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adminPassword">Contraseña</label>
+                    <input type="password" id="adminPassword" required placeholder="••••••••">
+                    <span class="input-icon">🔒</span>
+                    <button type="button" class="toggle-password" data-target="adminPassword">👁️</button>
+                </div>
+
+                <button type="submit" class="auth-btn admin-btn">
+                    <span class="btn-text">Acceder al Panel</span>
+                    <span class="btn-loading">⏳</span>
+                </button>
+
+                <div class="auth-mode-switcher">
+                    <p>¿Eres cliente? 
+                        <a href="#" id="switchToClientMode">Acceder como cliente</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Notificaciones -->
+        <div class="notification" id="notification"></div>
+    </div>
+
+    <script src="js/auth.js"></script>
+
+    <!-- Script de inicialización para garantizar funcionamiento -->
+    <script>
+    // Inicialización adicional para garantizar que todo funcione
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('✅ login.html cargado correctamente');
+        
+        // Verificar si hay usuario logueado (para redirección)
+        const currentUser = JSON.parse(localStorage.getItem('hairia_current_user') || sessionStorage.getItem('hairia_current_user') || 'null');
+        if (currentUser) {
+            console.log('👤 Usuario ya logueado, redirigiendo...');
+            if (currentUser.role === 'admin') {
+                window.location.href = 'admin/admin.html';
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+    });
+    </script>
+</body>
+</html>

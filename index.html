@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HairIA - Diagnóstico Capilar Inteligente</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/products.css"> <!-- AGREGAR ESTE CSS -->
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="images/logo.jpg" alt="HairIA Logo" class="logo">
+        </div>
+        <nav class="nav">
+            <a href="#diagnostico" class="nav-link">Inicio</a>
+            <a href="products.html" class="nav-link">Productos</a> <!-- CAMBIAR a página separada -->
+            <a href="#nosotros" class="nav-link">Nosotros</a>
+        </nav>
+        <div class="user-actions">
+            <button id="loginBtn" class="login-btn">Iniciar Sesión</button>
+            <div class="cart-icon" id="cartIcon">
+                🛒 <span class="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar productos... (ej: shampoo, reparador, aceite)">
+            <button id="searchButton">🔍</button>
+        </div>
+    </div>
+
+
+
+    <!-- Featured Products Section -->
+    <section class="featured-products">
+        <div class="container">
+            <h2 class="section-title">Productos Destacados</h2>
+            <div class="products-grid" id="featuredProductsGrid">
+                <!-- Productos destacados se cargan dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">Nuestras Categorías</h2>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categorías se cargan dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section (Opcional - puedes eliminar esta sección si prefieres solo destacados) -->
+    <section class="products-section" id="productos">
+        <div class="container">
+            <h2 class="section-title">Todos los Productos</h2>
+            <div class="view-all">
+                <a href="products.html" class="view-all-btn">Ver Todos los Productos →</a>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Los productos se cargan dinámicamente con JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Tu Carrito de Compras</h3>
+            <button id="closeCart" class="close-cart">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Items del carrito se cargan dinámicamente -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>$<span id="cartTotal">0.00</span></span>
+            </div>
+            <button class="checkout-btn">Proceder al Pago</button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
