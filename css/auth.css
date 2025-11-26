@@ -392,49 +392,403 @@
     background: #f59e0b;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+/* ========== MEDIA QUERIES MEJORADAS PARA AUTH ========== */
+
+/* Tablets (769px a 1024px) */
+@media (max-width: 1024px) {
     .auth-container {
-        padding: 10px;
+        max-width: 400px;
+        padding: 2rem;
     }
     
     .auth-card {
-        padding: 30px 25px;
+        padding: 2.5rem;
+    }
+    
+    .auth-logo h1 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Tabletas pequeñas y móviles grandes (577px a 768px) */
+@media (max-width: 768px) {
+    .auth-body {
+        padding: 1rem;
+        align-items: flex-start;
+        padding-top: 2rem;
+    }
+    
+    .auth-container {
+        max-width: 100%;
+        padding: 1rem;
+    }
+    
+    .auth-card {
+        padding: 2rem 1.5rem;
+        border-radius: 12px;
+        margin: 0 auto;
+    }
+    
+    .auth-logo {
+        margin-bottom: 1.5rem;
+    }
+    
+    .auth-logo img {
+        height: 45px;
+        margin-bottom: 0.8rem;
+    }
+    
+    .auth-logo h1 {
+        font-size: 1.5rem;
+    }
+    
+    .auth-tabs {
+        margin-bottom: 1.5rem;
+        padding: 3px;
+    }
+    
+    .tab-btn {
+        padding: 1rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+    
+    .form-group label {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-group input {
+        padding: 1rem 2.5rem 1rem 2.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .input-icon {
+        left: 12px;
+        font-size: 1rem;
+    }
+    
+    .toggle-password {
+        right: 12px;
+        font-size: 1rem;
+    }
+    
+    .form-options {
+        margin-bottom: 1.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .auth-btn {
+        padding: 1rem;
+        font-size: 0.95rem;
+    }
+    
+    .auth-divider {
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+    }
+    
+    .social-btn {
+        padding: 1rem;
+        font-size: 0.85rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .auth-mode-switcher {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+    }
+    
+    .admin-access {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+    }
+}
+
+/* Móviles (481px a 576px) */
+@media (max-width: 576px) {
+    .auth-body {
+        padding: 0.5rem;
+        padding-top: 1rem;
+        background: var(--primary-white);
+    }
+    
+    .auth-container {
+        padding: 0.5rem;
+    }
+    
+    .auth-card {
+        padding: 1.5rem 1.2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--border-color);
+    }
+    
+    .auth-card::before {
+        height: 3px;
+    }
+    
+    .auth-logo {
+        margin-bottom: 1.2rem;
+    }
+    
+    .auth-logo img {
+        height: 40px;
+    }
+    
+    .auth-logo h1 {
+        font-size: 1.4rem;
+    }
+    
+    .auth-tabs {
+        margin-bottom: 1.2rem;
+    }
+    
+    .tab-btn {
+        padding: 0.8rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .form-group input {
+        padding: 0.9rem 2.2rem 0.9rem 2.2rem;
+        font-size: 0.9rem;
+        border-radius: 8px;
+    }
+    
+    .form-group input:focus {
+        box-shadow: 0 0 0 2px rgba(26, 26, 26, 0.1);
+    }
+    
+    .input-icon {
+        left: 10px;
+    }
+    
+    .toggle-password {
+        right: 10px;
     }
     
     .form-options {
         flex-direction: column;
-        gap: 15px;
+        gap: 1rem;
         align-items: flex-start;
+        margin-bottom: 1.2rem;
+    }
+    
+    .checkbox-container {
+        width: 100%;
+    }
+    
+    .forgot-password {
+        align-self: flex-end;
+    }
+    
+    .auth-btn {
+        padding: 0.9rem;
+        font-size: 0.9rem;
+        border-radius: 8px;
+    }
+    
+    .auth-divider {
+        margin: 1.2rem 0;
+    }
+    
+    .social-btn {
+        padding: 0.9rem;
+    }
+    
+    .notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        text-align: center;
     }
 }
 
-.auth-mode-switcher {
-    text-align: center;
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-color);
+/* Móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+    .auth-body {
+        padding: 0;
+        background: var(--primary-white);
+    }
+    
+    .auth-container {
+        padding: 0;
+        max-width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .auth-card {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+        padding: 2rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .auth-card::before {
+        height: 4px;
+    }
+    
+    .auth-logo {
+        margin-bottom: 2rem;
+    }
+    
+    .auth-logo img {
+        height: 45px;
+    }
+    
+    .auth-logo h1 {
+        font-size: 1.6rem;
+    }
+    
+    .auth-tabs {
+        margin-bottom: 2rem;
+    }
+    
+    .tab-btn {
+        padding: 1rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-group input {
+        padding: 1rem 2.5rem 1rem 2.5rem;
+    }
+    
+    .auth-btn {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* Asegurar que el contenido sea scrollable si es muy largo */
+    .auth-card {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Ocultar elementos menos importantes en móviles muy pequeños */
+    .auth-divider span {
+        padding: 0 10px;
+        font-size: 0.8rem;
+    }
+    
+    .social-btn {
+        font-size: 0.8rem;
+    }
+    
+    .auth-mode-switcher p,
+    .admin-access a,
+    .back-to-login a {
+        font-size: 0.85rem;
+    }
 }
 
-.auth-mode-switcher p {
-    color: var(--accent-gray);
-    font-size: 0.9rem;
-    margin: 0;
+/* Pantallas muy altas (evitar problemas en dispositivos largos) */
+@media (min-height: 800px) and (max-width: 480px) {
+    .auth-card {
+        justify-content: flex-start;
+        padding-top: 3rem;
+    }
 }
 
-.auth-mode-switcher a {
-    color: var(--primary-black);
-    text-decoration: none;
-    font-weight: 600;
-    transition: var(--transition);
+/* Pantallas muy cortas */
+@media (max-height: 600px) {
+    .auth-body {
+        align-items: flex-start;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    
+    .auth-card {
+        padding: 1.5rem;
+    }
+    
+    .auth-logo {
+        margin-bottom: 1rem;
+    }
+    
+    .auth-tabs {
+        margin-bottom: 1rem;
+    }
+    
+    .form-group {
+        margin-bottom: 0.8rem;
+    }
 }
 
-.auth-mode-switcher a:hover {
-    text-decoration: underline;
+/* Orientación landscape en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+    .auth-body {
+        padding: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .auth-container {
+        max-width: 100%;
+        padding: 0.5rem;
+    }
+    
+    .auth-card {
+        padding: 1.5rem;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .auth-logo {
+        margin-bottom: 1rem;
+    }
+    
+    .auth-logo img {
+        height: 35px;
+    }
+    
+    .auth-logo h1 {
+        font-size: 1.3rem;
+    }
 }
 
-/* Admin Form específico */
-.admin-form .auth-mode-switcher {
-    border-top: 1px solid var(--border-color);
-    margin-top: 20px;
+/* Mejoras de accesibilidad en móviles */
+@media (max-width: 768px) {
+    .auth-btn,
+    .social-btn,
+    .tab-btn {
+        min-height: 44px; /* Tamaño mínimo para touch */
+    }
+    
+    .form-group input {
+        min-height: 44px; /* Tamaño mínimo para touch */
+    }
+    
+    .toggle-password {
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Asegurar que los inputs no zoom en iOS */
+@media (max-width: 768px) {
+    .form-group input {
+        font-size: 16px; /* Previene zoom en iOS */
+    }
+}
+
+/* Mejorar el scroll en iOS */
+.auth-card {
+    -webkit-overflow-scrolling: touch;
 }
