@@ -93,21 +93,26 @@ function renderProducts(products, container) {
     }
 
     container.innerHTML = products.map(product => `
-        <div class="product-card" data-category="${product.category}">
+        <div class="product-card" data-category="${product.category}" onclick="openProductModal(${product.id})" style="cursor: pointer;">
             <div class="product-image">
-                <div class="image-placeholder">
-                    <span class="product-emoji">${emojis[product.category] || '🛍️'}</span>
-                    <span class="product-text">${product.name.split(' ')[0]}</span>
-                </div>
+                ${product.image ? 
+                    `<img src="${product.image}" alt="${product.name}" class="product-real-image">` :
+                    `<div class="image-placeholder">
+                        <span class="product-emoji">${emojis[product.category] || '🛍️'}</span>
+                        <span class="product-text">${product.name.split(' ')[0]}</span>
+                    </div>`
+                }
                 ${product.featured ? '<span class="featured-badge">⭐ Destacado</span>' : ''}
             </div>
-            <h3>${product.name}</h3>
-            <p class="product-price">$${product.price.toFixed(2)}</p>
-            <p class="product-desc">${product.description}</p>
-            <div class="product-category">${window.categories.find(cat => cat.id === product.category)?.name || product.category}</div>
-            <button class="add-to-cart" onclick="addToCartFromButton(${product.id})">
-                Agregar al Carrito
-            </button>
+            <div class="product-info">
+                <h3>${product.name}</h3>
+                <p class="product-price">${formatCLP(product.price)}</p>
+                <p class="product-desc">${product.description}</p>
+                <div class="product-category">${window.categories.find(cat => cat.id === product.category)?.name || product.category}</div>
+                <button class="add-to-cart" onclick="event.stopPropagation(); addToCartFromButton(${product.id})">
+                    Agregar al Carrito
+                </button>
+            </div>
         </div>
     `).join('');
 }

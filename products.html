@@ -53,7 +53,221 @@
         </div>
     </section>
 
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Tu Carrito de Compras</h3>
+            <button id="closeCart" class="close-cart">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Items del carrito se cargan dinámicamente -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>$<span id="cartTotal">0.00</span></span>
+            </div>
+            <button class="checkout-btn">Proceder al Pago</button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- Modal de Detalles de Producto -->
+    <div class="product-modal" id="productModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">×</button>
+            
+            <div class="product-modal-content">
+                <!-- Imagen del producto -->
+                <div class="modal-product-image">
+                    <img id="modalProductImage" src="" alt="">
+                    <div class="modal-image-placeholder" id="modalImagePlaceholder">
+                        <span class="placeholder-emoji">🛍️</span>
+                        <span>Imagen no disponible</span>
+                    </div>
+                </div>
+                
+                <!-- Información del producto -->
+                <div class="modal-product-info">
+                    <div class="modal-header">
+                        <h2 id="modalProductName">Nombre del Producto</h2>
+                        <div class="modal-price" id="modalProductPrice">$0.00</div>
+                    </div>
+                    
+                    <div class="modal-category" id="modalProductCategory">Categoría</div>
+                    
+                    <div class="modal-section">
+                        <h3>📋 Descripción</h3>
+                        <p id="modalProductDescription">Descripción del producto...</p>
+                    </div>
+                    
+                    <div class="modal-section" id="modalIngredientsSection">
+                        <h3>🧪 Ingredientes Principales</h3>
+                        <p id="modalProductIngredients">Ingredientes no especificados</p>
+                    </div>
+                    
+                    <div class="modal-section" id="modalUsageSection">
+                        <h3>⚡ Modo de Uso</h3>
+                        <p id="modalProductUsage">Instrucciones no especificadas</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>📊 Especificaciones</h3>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">SKU:</span>
+                                <span id="modalProductSKU">N/A</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Stock:</span>
+                                <span id="modalProductStock">0</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Peso/Cantidad:</span>
+                                <span id="modalProductQuantity">N/A</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button class="add-to-cart-modal" id="modalAddToCart">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/app.js"></script>
     <script src="js/products.js"></script>
+    
+    <script>
+    // ==================== MODAL DE PRODUCTO PARA PRODUCTS.HTML ====================
+    console.log('🚀 Cargando sistema de modal para products.html...');
+
+    // Función para abrir el modal de producto
+    function openProductModal(productId) {
+        console.log('🎯 Abriendo modal para producto ID:', productId);
+        
+        const product = window.productsData.find(p => p.id === productId);
+        if (!product) {
+            console.log('❌ Producto no encontrado');
+            return;
+        }
+        
+        console.log('📦 Producto encontrado:', product.name);
+        
+        // Llenar el modal con la información del producto
+        document.getElementById('modalProductName').textContent = product.name;
+        document.getElementById('modalProductPrice').textContent = formatCLP(product.price);
+        document.getElementById('modalProductCategory').textContent = getCategoryName(product.category);
+        document.getElementById('modalProductDescription').textContent = product.description;
+        document.getElementById('modalProductSKU').textContent = product.sku || 'N/A';
+        document.getElementById('modalProductStock').textContent = product.stock;
+        document.getElementById('modalProductQuantity').textContent = product.quantity && product.unit ? 
+            `${product.quantity} ${product.unit}` : 'N/A';
+        
+        // Imagen
+        const productImage = document.getElementById('modalProductImage');
+        const imagePlaceholder = document.getElementById('modalImagePlaceholder');
+        
+        if (product.image) {
+            productImage.src = product.image;
+            productImage.style.display = 'block';
+            imagePlaceholder.style.display = 'none';
+        } else {
+            productImage.style.display = 'none';
+            imagePlaceholder.style.display = 'flex';
+        }
+        
+        // Ingredientes (ocultar si no hay)
+        const ingredientsSection = document.getElementById('modalIngredientsSection');
+        const ingredientsText = document.getElementById('modalProductIngredients');
+        if (product.ingredients) {
+            ingredientsText.textContent = product.ingredients;
+            ingredientsSection.style.display = 'block';
+        } else {
+            ingredientsSection.style.display = 'none';
+        }
+        
+        // Modo de uso (ocultar si no hay)
+        const usageSection = document.getElementById('modalUsageSection');
+        const usageText = document.getElementById('modalProductUsage');
+        if (product.usage) {
+            usageText.textContent = product.usage;
+            usageSection.style.display = 'block';
+        } else {
+            usageSection.style.display = 'none';
+        }
+        
+        // Configurar botón de agregar al carrito
+        const addToCartBtn = document.getElementById('modalAddToCart');
+        addToCartBtn.onclick = function(event) {
+            event.stopPropagation();
+            addToCart(product);
+            closeProductModal();
+            showNotification(`${product.name} agregado al carrito`);
+        };
+        
+        // Mostrar modal
+        const modal = document.getElementById('productModal');
+        modal.classList.add('active');
+        console.log('✅ Modal activado');
+        
+        // Prevenir scroll del body
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Función para cerrar el modal
+    function closeProductModal() {
+        const modal = document.getElementById('productModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        console.log('🔒 Modal cerrado');
+    }
+
+    // Función auxiliar para obtener nombre de categoría
+    function getCategoryName(categoryId) {
+        if (!window.categories) {
+            window.categories = JSON.parse(localStorage.getItem('hairia_categories')) || [];
+        }
+        const category = window.categories.find(cat => cat.id === categoryId);
+        return category ? category.name : categoryId;
+    }
+
+    // Configurar event listeners cuando se cargue la página
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🔧 Configurando modal para products.html...');
+        
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', closeProductModal);
+            console.log('✅ Overlay configurado');
+        }
+        
+        if (modalClose) {
+            modalClose.addEventListener('click', closeProductModal);
+            console.log('✅ Botón cerrar configurado');
+        }
+        
+        // Cerrar con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProductModal();
+            }
+        });
+        
+        console.log('🎉 Modal para products.html completamente configurado');
+    });
+
+    // Hacer funciones globales
+    window.openProductModal = openProductModal;
+    window.closeProductModal = closeProductModal;
+    window.getCategoryName = getCategoryName;
+    </script>
 </body>
 </html>

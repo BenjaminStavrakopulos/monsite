@@ -5,10 +5,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeAdminProducts() {
     checkAdminAuth();
+    
+    // CARGAR DATOS GLOBALES PRIMERO
+    loadGlobalData();
+    
     loadProductsTable();
     loadCategoriesDropdown();
     updateStats();
     setupEventListeners();
+}
+
+// NUEVA FUNCIÓN: Cargar datos globales
+function loadGlobalData() {
+    // Cargar productos si no están en window.productsData
+    if (!window.productsData || window.productsData.length === 0) {
+        window.productsData = JSON.parse(localStorage.getItem('hairia_products')) || [];
+        console.log('🛍️ Productos cargados:', window.productsData.length);
+    }
+    
+    // Cargar categorías si no están en window.categories
+    if (!window.categories || window.categories.length === 0) {
+        window.categories = JSON.parse(localStorage.getItem('hairia_categories')) || [];
+        console.log('📁 Categorías cargadas:', window.categories.length);
+    }
 }
 
 function checkAdminAuth() {
@@ -106,6 +125,12 @@ function getStockText(stock, minStock = 5) {
 }
 
 function loadCategoriesDropdown() {
+    // CARGAR CATEGORÍAS DESDE LOCALSTORAGE SI NO ESTÁN EN window.categories
+    if (!window.categories || window.categories.length === 0) {
+        window.categories = JSON.parse(localStorage.getItem('hairia_categories')) || [];
+        console.log('📁 Categorías cargadas desde localStorage:', window.categories);
+    }
+    
     const categorySelect = document.getElementById('productCategory');
     const categoryFilter = document.getElementById('categoryFilter');
     
@@ -116,6 +141,7 @@ function loadCategoriesDropdown() {
                 <option value="${category.id}">${category.name}</option>
             `).join('')}
         `;
+        console.log('✅ Dropdown de categorías cargado:', window.categories.length, 'categorías');
     }
     
     if (categoryFilter) {
@@ -160,8 +186,13 @@ function handleImageUpload(event) {
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            // Guardar la imagen como base64 o URL
+            const imageData = e.target.result;
+            preview.innerHTML = `<img src="${imageData}" alt="Preview">`;
             preview.classList.add('has-image');
+            
+            // Guardar en un campo hidden o variable temporal
+            document.getElementById('productImage').dataset.imageData = imageData;
         };
         reader.readAsDataURL(file);
     }
@@ -172,12 +203,13 @@ function showProductForm(productId = null) {
     const formTitle = document.getElementById('productFormTitle');
     const form = document.getElementById('productForm');
     
+    // RESETEAR LA IMAGEN AL ABRIR EL FORMULARIO
+    currentImageData = '';
+    
     if (productId) {
-        // Modo edición
         formTitle.textContent = 'Editar Producto';
         loadProductData(productId);
     } else {
-        // Modo nuevo
         formTitle.textContent = 'Nuevo Producto';
         form.reset();
         document.getElementById('imagePreview').innerHTML = '<span>📷 Haz clic para subir imagen</span>';
@@ -223,16 +255,57 @@ function loadProductData(productId) {
     }
 }
 
+let currentImageData = ''; // Variable global para almacenar la imagen
+
+function handleImageUpload(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('imagePreview');
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            // GUARDAR LA IMAGEN EN LA VARIABLE GLOBAL
+            currentImageData = e.target.result;
+            
+            preview.innerHTML = `<img src="${currentImageData}" alt="Preview">`;
+            preview.classList.add('has-image');
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
 function handleProductSubmit(event) {
     event.preventDefault();
     
     const productId = document.getElementById('productId').value;
+    const discountType = document.getElementById('discountType').value;
+    
+    // Calcular precio final basado en el tipo de descuento
+    const basePrice = parseInt(document.getElementById('productPrice').value);
+    let finalPrice = basePrice;
+    let discountPercent = null;
+    let discountAmount = null;
+
+    if (discountType === 'percentage') {
+        discountPercent = parseInt(document.getElementById('productDiscountPercent').value) || 0;
+        if (discountPercent > 0) {
+            finalPrice = basePrice - (basePrice * discountPercent / 100);
+        }
+    } else if (discountType === 'amount') {
+        discountAmount = parseInt(document.getElementById('productDiscountAmount').value) || 0;
+        if (discountAmount > 0) {
+            finalPrice = basePrice - discountAmount;
+        }
+    }
+
     const productData = {
         name: document.getElementById('productName').value,
         sku: document.getElementById('productSKU').value,
-        price: parseFloat(document.getElementById('productPrice').value),
-        discountPrice: document.getElementById('productDiscountPrice').value ? 
-                      parseFloat(document.getElementById('productDiscountPrice').value) : null,
+        price: basePrice,
+        discountType: discountType,
+        discountPercent: discountPercent,
+        discountAmount: discountAmount,
+        finalPrice: Math.max(0, finalPrice), // Asegurar que no sea negativo
         category: document.getElementById('productCategory').value,
         stock: parseInt(document.getElementById('productStock').value),
         minStock: parseInt(document.getElementById('productMinStock').value) || 5,
@@ -245,15 +318,22 @@ function handleProductSubmit(event) {
         featured: document.getElementById('productFeatured').checked,
         active: document.getElementById('productActive').checked,
         trackStock: document.getElementById('productTrackStock').checked,
-        image: document.querySelector('#imagePreview img')?.src || '',
+        image: currentImageData || document.querySelector('#imagePreview img')?.src || '',
         updatedAt: new Date().toISOString()
     };
     
+    // Resetear la variable de imagen después de guardar
+    currentImageData = '';
+    
+    // Resetear campos de descuento si no hay descuento
+    if (discountType === 'none') {
+        document.getElementById('productDiscountPercent').value = '';
+        document.getElementById('productDiscountAmount').value = '';
+    }
+    
     if (productId) {
-        // Actualizar producto existente
         updateProduct(parseInt(productId), productData);
     } else {
-        // Crear nuevo producto
         createProduct(productData);
     }
 }
@@ -434,3 +514,60 @@ window.logoutUser = function() {
     sessionStorage.removeItem('hairia_current_user');
     window.location.href = '../index.html';
 };
+
+function toggleDiscountFields() {
+    const discountType = document.getElementById('discountType').value;
+    const discountFields = document.getElementById('discountFields');
+    const percentageField = document.getElementById('percentageField');
+    const amountField = document.getElementById('amountField');
+    
+    if (discountType === 'none') {
+        discountFields.style.display = 'none';
+        calculateFinalPrice();
+    } else {
+        discountFields.style.display = 'flex';
+        if (discountType === 'percentage') {
+            percentageField.style.display = 'block';
+            amountField.style.display = 'none';
+        } else {
+            percentageField.style.display = 'none'; 
+            amountField.style.display = 'block';
+        }
+        calculateFinalPrice();
+    }
+}
+
+// Función para calcular precio final
+function calculateFinalPrice() {
+    const price = parseInt(document.getElementById('productPrice').value) || 0;
+    const discountType = document.getElementById('discountType').value;
+    const discountPercent = parseInt(document.getElementById('productDiscountPercent').value) || 0;
+    const discountAmount = parseInt(document.getElementById('productDiscountAmount').value) || 0;
+    
+    let finalPrice = price;
+    let discountText = '';
+    
+    if (discountType === 'percentage' && discountPercent > 0) {
+        finalPrice = price - (price * discountPercent / 100);
+        discountText = `-${discountPercent}%`;
+    } else if (discountType === 'amount' && discountAmount > 0) {
+        finalPrice = price - discountAmount;
+        discountText = `-${formatCLP(discountAmount)}`;
+    }
+    
+    document.getElementById('finalPrice').value = formatCLP(finalPrice);
+    
+    // Guardar el texto del descuento en un campo hidden
+    document.getElementById('finalPrice').dataset.discountText = discountText;
+}
+
+// Event listeners para cálculos en tiempo real
+document.addEventListener('DOMContentLoaded', function() {
+    const priceInput = document.getElementById('productPrice');
+    const discountPercentInput = document.getElementById('productDiscountPercent');
+    const discountAmountInput = document.getElementById('productDiscountAmount');
+    
+    if (priceInput) priceInput.addEventListener('input', calculateFinalPrice);
+    if (discountPercentInput) discountPercentInput.addEventListener('input', calculateFinalPrice);
+    if (discountAmountInput) discountAmountInput.addEventListener('input', calculateFinalPrice);
+});

@@ -360,10 +360,16 @@ function saveUserSession(user, rememberMe = false) {
 }
 
 function checkExistingSession() {
+    // Solo verificar sesión en login.html, no en otras páginas
+    if (!window.location.pathname.includes('login.html')) {
+        return;
+    }
+    
     const user = JSON.parse(localStorage.getItem('hairia_current_user') || sessionStorage.getItem('hairia_current_user'));
     
     if (user) {
-        // Si hay sesión activa, redirigir según el rol
+        console.log('🔄 Sesión existente detectada en login, redirigiendo...');
+        
         setTimeout(() => {
             if (user.role === 'admin') {
                 window.location.href = 'admin/admin.html';
