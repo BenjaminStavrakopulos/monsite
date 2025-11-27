@@ -1354,3 +1354,318 @@
         transition-duration: 0.01ms !important;
     }
 }
+/* ========== CORRECCIÓN DEFINITIVA DE COLORES ========== */
+
+/* Asegurar que TODOS los textos sean legibles */
+body, 
+.admin-container,
+.admin-main,
+.admin-sidebar,
+.stat-card,
+.products-table-container,
+.action-card,
+.recent-activity,
+.category-card-admin,
+.modal-content {
+    color: var(--admin-text) !important;
+}
+
+/* Corregir textos específicos */
+h1, h2, h3, h4, h5, h6,
+p, span, div,
+.admin-welcome h1,
+.admin-welcome p,
+.stat-info h3,
+.stat-info p,
+.action-card h3,
+.action-card p,
+.table-header h3,
+.recent-activity h3,
+.activity-content p,
+.category-header h3,
+.category-body p,
+.modal-header h3,
+.form-group label {
+    color: var(--admin-text) !important;
+}
+
+/* ========== CORRECCIÓN DE BOTONES ========== */
+
+/* Botón primario - Siempre texto blanco sobre fondo oscuro */
+.btn-primary {
+    background: var(--admin-primary) !important;
+    color: white !important;
+    border: none !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    background: var(--admin-primary) !important;
+    color: #1e293b !important; /* Texto oscuro sobre fondo claro */
+}
+
+[data-theme="light"] .btn-primary {
+    background: var(--admin-primary) !important;
+    color: white !important; /* Texto blanco sobre fondo oscuro */
+}
+
+.btn-primary:hover {
+    background: var(--admin-secondary) !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background: #e2e8f0 !important;
+    color: #1e293b !important;
+}
+
+/* Botón secundario - Texto siempre visible */
+.btn-secondary {
+    background: var(--admin-card) !important;
+    color: var(--admin-text) !important;
+    border: 1px solid var(--admin-border) !important;
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: #374151 !important;
+    color: #f1f5f9 !important;
+    border-color: #4b5563 !important;
+}
+
+[data-theme="light"] .btn-secondary {
+    background: white !important;
+    color: #1e293b !important;
+    border-color: #e2e8f0 !important;
+}
+
+.btn-secondary:hover {
+    background: var(--admin-bg) !important;
+    color: var(--admin-text) !important;
+    border-color: var(--admin-accent) !important;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: #4b5563 !important;
+    color: white !important;
+}
+
+[data-theme="light"] .btn-secondary:hover {
+    background: #f8fafc !important;
+    color: #1e293b !important;
+}
+
+/* Botón de peligro - Siempre texto blanco */
+.btn-danger {
+    background: var(--admin-error) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-danger:hover {
+    background: #dc2626 !important;
+    color: white !important;
+}
+
+/* Botones en categorías y marcas */
+.category-actions .btn-secondary,
+.category-actions .btn-danger {
+    color: inherit !important;
+}
+
+[data-theme="dark"] .category-actions .btn-secondary {
+    background: #374151 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .category-actions .btn-secondary {
+    background: white !important;
+    color: #1e293b !important;
+}
+
+/* Botones del modal */
+.form-actions .btn-secondary {
+    color: inherit !important;
+}
+
+[data-theme="dark"] .form-actions .btn-secondary {
+    background: #374151 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .form-actions .btn-secondary {
+    background: #f1f5f9 !important;
+    color: #1e293b !important;
+}
+
+/* Botón de logout */
+.logout-btn {
+    color: var(--admin-text) !important;
+    background: var(--admin-bg) !important;
+    border: 1px solid var(--admin-border) !important;
+}
+
+[data-theme="dark"] .logout-btn {
+    background: #374151 !important;
+    color: #f1f5f9 !important;
+    border-color: #4b5563 !important;
+}
+
+[data-theme="light"] .logout-btn {
+    background: #f1f5f9 !important;
+    color: #1e293b !important;
+    border-color: #e2e8f0 !important;
+}
+
+.logout-btn:hover {
+    background: var(--admin-error) !important;
+    color: white !important;
+    border-color: var(--admin-error) !important;
+}
+
+/* ========== CORRECCIÓN DE TABLAS ========== */
+.products-table th {
+    color: var(--admin-text) !important;
+    background: var(--admin-bg) !important;
+}
+
+.products-table td {
+    color: var(--admin-text) !important;
+}
+
+/* Botones de acciones en tabla */
+.table-actions-btn {
+    color: var(--admin-text) !important;
+    background: var(--admin-bg) !important;
+    border: 1px solid var(--admin-border) !important;
+}
+
+.table-actions-btn:hover {
+    background: var(--admin-primary) !important;
+    color: white !important;
+}
+
+.table-actions-btn.delete-btn:hover {
+    background: var(--admin-error) !important;
+    color: white !important;
+}
+
+/* ========== CORRECCIÓN DE FORMULARIOS ========== */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    color: var(--admin-text) !important;
+    background: var(--admin-card) !important;
+    border: 2px solid var(--admin-border) !important;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--admin-accent) !important;
+}
+
+.form-group label {
+    color: var(--admin-text) !important;
+}
+
+/* Placeholders */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--admin-text-light) !important;
+    opacity: 0.7;
+}
+
+/* ========== CORRECCIÓN DE BADGES Y ETIQUETAS ========== */
+.status-badge {
+    color: white !important;
+}
+
+.category-tag {
+    color: var(--admin-text) !important;
+    background: var(--admin-bg) !important;
+    border: 1px solid var(--admin-border) !important;
+}
+
+.product-count {
+    color: var(--admin-text-light) !important;
+    background: var(--admin-bg) !important;
+}
+
+/* ========== CORRECCIÓN DE NAVEGACIÓN ========== */
+.nav-item {
+    color: var(--admin-text-light) !important;
+}
+
+.nav-item:hover {
+    color: var(--admin-text) !important;
+}
+
+.nav-item.active {
+    color: white !important;
+}
+
+/* ========== CORRECCIÓN DE THEME TOGGLE ========== */
+.theme-toggle-btn {
+    color: var(--admin-text) !important;
+    background: var(--admin-card) !important;
+    border: 2px solid var(--admin-border) !important;
+}
+
+.theme-text {
+    color: var(--admin-text) !important;
+}
+
+/* ========== CORRECCIÓN DE MODAL ========== */
+.close-modal {
+    color: var(--admin-text) !important;
+    background: var(--admin-bg) !important;
+}
+
+.close-modal:hover {
+    background: var(--admin-error) !important;
+    color: white !important;
+}
+
+/* ========== CORRECCIÓN DE ESTADOS DESHABILITADOS ========== */
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-danger:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+[data-theme="dark"] .btn-danger:disabled {
+    background: #6b7280 !important;
+    color: #9ca3af !important;
+}
+
+[data-theme="light"] .btn-danger:disabled {
+    background: #9ca3af !important;
+    color: #6b7280 !important;
+}
+
+/* ========== GARANTÍA DE LEGIBILIDAD ========== */
+/* Forzar contraste mínimo en modo oscuro */
+[data-theme="dark"] {
+    --admin-text: #f8fafc !important;
+    --admin-text-light: #cbd5e1 !important;
+}
+
+/* Forzar contraste mínimo en modo claro */
+[data-theme="light"] {
+    --admin-text: #1e293b !important;
+    --admin-text-light: #475569 !important;
+}
+
+/* Asegurar que los textos siempre tengan buen contraste */
+* {
+    color: inherit !important;
+}
+
+/* Reset específico para elementos que podrían estar heredando mal */
+button, 
+input, 
+select, 
+textarea,
+a {
+    color: inherit !important;
+}
