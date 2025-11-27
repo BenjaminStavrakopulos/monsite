@@ -454,8 +454,6 @@ function openProductModal(productId) {
 
     document.getElementById('modalProductCategory').textContent = getCategoryName(product.category);
     document.getElementById('modalProductDescription').textContent = product.description;
-    document.getElementById('modalProductSKU').textContent = product.sku || 'N/A';
-    document.getElementById('modalProductStock').textContent = product.stock;
     document.getElementById('modalProductQuantity').textContent = product.quantity && product.unit ?
         `${product.quantity} ${product.unit}` : 'N/A';
 

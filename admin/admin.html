@@ -1,30 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Admin </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/admin.css">
 </head>
-
 <body>
     <div class="admin-container">
-        <!-- Sidebar -->
         <aside class="admin-sidebar">
             <div class="admin-logo">
-                <img src="../images/logo.jpg" alt="HairIA Admin">
+                <img src="../images/logo.jpg" alt="Monsite Admin">
                 <h2>Panel Admin</h2>
-                <nav class="admin-nav">
-                    <a href="#" class="nav-item active">📊 Dashboard</a>
-                    <a href="admin-products.html" class="nav-item">🛍️ Productos</a>
-                    <a href="admin-categories.html" class="nav-item">📁 Categorías</a>
-                </nav>
-                <div class="admin-footer">
-                    <button onclick="logoutUser()" class="logout-btn">🚪 Cerrar Sesión</button>
-                </div>
+            </div>
+            
+            <!-- Botón toggle -->
+            <div class="theme-toggle-container">
+                <button class="theme-toggle-btn" id="themeToggle">
+                    <span class="theme-slider">
+                        <span class="theme-knob"></span>
+                    </span>
+                    <span class="theme-text">Modo Oscuro</span>
+                </button>
+            </div>
+            
+            <nav class="admin-nav">
+                <a href="admin.html" class="nav-item active">📊 Dashboard</a>
+                <a href="admin-products.html" class="nav-item">🛍️ Productos</a>
+                <a href="admin-categories.html" class="nav-item">📁 Categorías</a>
+                <a href="admin-brands.html" class="nav-item">🏷️ Marcas</a>
+            </nav>
+            
+            <div class="admin-footer">
+                <button onclick="logoutUser()" class="logout-btn">🚪 Cerrar Sesión</button>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -84,17 +94,17 @@
                     <span class="action-arrow">→</span>
                 </a>
 
+                <a href="admin-brands.html" class="action-card">
+                    <div class="action-icon">🏷️</div>
+                    <h3>Gestionar Marcas</h3>
+                    <p>Administrar las marcas de tus productos</p>
+                    <span class="action-arrow">→</span>
+                </a>
+
                 <div class="action-card coming-soon">
                     <div class="action-icon">📦</div>
                     <h3>Gestión de Órdenes</h3>
                     <p>Próximamente - Ver y gestionar pedidos</p>
-                    <span class="action-badge">Próximo</span>
-                </div>
-
-                <div class="action-card coming-soon">
-                    <div class="action-icon">👥</div>
-                    <h3>Gestión de Clientes</h3>
-                    <p>Próximamente - Administrar usuarios</p>
                     <span class="action-badge">Próximo</span>
                 </div>
             </div>
@@ -115,8 +125,6 @@
         </main>
     </div>
 
-
     <script src="../js/admin.js"></script>
 </body>
-
 </html>

@@ -11,19 +11,32 @@
 <body>
     <div class="admin-container">
         <aside class="admin-sidebar">
-            <div class="admin-logo">
-                <img src="../images/logo.jpg" alt="HairIA Admin">
-                <h2>Panel Admin</h2>
-            </div>
-            <nav class="admin-nav">
-                <a href="admin.html" class="nav-item">📊 Dashboard</a>
-                <a href="admin-products.html" class="nav-item">🛍️ Productos</a>
-                <a href="admin-categories.html" class="nav-item active">📁 Categorías</a>
-            </nav>
-            <div class="admin-footer">
-                <button onclick="logoutUser()" class="logout-btn">🚪 Cerrar Sesión</button>
-            </div>
-        </aside>
+    <div class="admin-logo">
+        <img src="../images/logo.jpg" alt="Monsite Admin">
+        <h2>Panel Admin</h2>
+    </div>
+    
+    <!-- Botón toggle arriba de todo -->
+    <div class="theme-toggle-container">
+        <button class="theme-toggle-btn" id="themeToggle">
+            <span class="theme-slider">
+                <span class="theme-knob"></span>
+            </span>
+            <span class="theme-text">Modo Oscuro</span>
+        </button>
+    </div>
+    
+    <nav class="admin-nav">
+        <a href="admin.html" class="nav-item">📊 Dashboard</a>
+        <a href="admin-products.html" class="nav-item">🛍️ Productos</a>
+        <a href="admin-categories.html" class="nav-item">📁 Categorías</a>
+         <a href="admin-brands.html" class="nav-item">🏷️ Marcas</a>
+    </nav>
+    
+    <div class="admin-footer">
+        <button onclick="logoutUser()" class="logout-btn">🚪 Cerrar Sesión</button>
+    </div>
+</aside>
 
         <main class="admin-main">
             <header class="admin-header">
@@ -86,5 +99,6 @@
 
     <script src="../js/auth.js"></script>
     <script src="../js/admin-categories.js"></script>
+    <script src="../js/theme-toggle.js"></script>
 </body>
 </html>

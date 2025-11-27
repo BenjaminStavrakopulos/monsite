@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,19 +9,33 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/admin.css">
 </head>
+
 <body>
     <div class="admin-container">
         <!-- Sidebar -->
         <aside class="admin-sidebar">
             <div class="admin-logo">
-                <img src="../images/logo.jpg" alt="HairIA Admin">
+                <img src="../images/logo.jpg" alt="Monsite Admin">
                 <h2>Panel Admin</h2>
             </div>
+
+            <!-- Botón toggle arriba de todo -->
+            <div class="theme-toggle-container">
+                <button class="theme-toggle-btn" id="themeToggle">
+                    <span class="theme-slider">
+                        <span class="theme-knob"></span>
+                    </span>
+                    <span class="theme-text">Modo Oscuro</span>
+                </button>
+            </div>
+
             <nav class="admin-nav">
                 <a href="admin.html" class="nav-item">📊 Dashboard</a>
-                <a href="admin-products.html" class="nav-item active">🛍️ Productos</a>
+                <a href="admin-products.html" class="nav-item">🛍️ Productos</a>
                 <a href="admin-categories.html" class="nav-item">📁 Categorías</a>
+                 <a href="admin-brands.html" class="nav-item">🏷️ Marcas</a>
             </nav>
+
             <div class="admin-footer">
                 <button onclick="logoutUser()" class="logout-btn">🚪 Cerrar Sesión</button>
             </div>
@@ -79,11 +94,12 @@
                     </div>
                     <form id="productForm" enctype="multipart/form-data">
                         <input type="hidden" id="productId">
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Nombre del Producto *</label>
-                                <input type="text" id="productName" required placeholder="Ej: Shampoo Reparador Intenso">
+                                <input type="text" id="productName" required
+                                    placeholder="Ej: Shampoo Reparador Intenso">
                             </div>
                             <div class="form-group">
                                 <label>SKU (Código único) *</label>
@@ -91,38 +107,39 @@
                             </div>
                         </div>
 
-<div class="form-row">
-    <div class="form-group">
-        <label>Precio Normal *</label>
-        <input type="number" id="productPrice" step="1" min="0" required placeholder="19990">
-    </div>
-    <div class="form-group">
-        <label>Tipo de Descuento</label>
-        <select id="discountType" onchange="toggleDiscountFields()">
-            <option value="none">Sin descuento</option>
-            <option value="percentage">Porcentaje %</option>
-            <option value="amount">Monto fijo $</option>
-        </select>
-    </div>
-</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Precio Normal *</label>
+                                <input type="number" id="productPrice" step="1" min="0" required placeholder="19990">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Descuento</label>
+                                <select id="discountType" onchange="toggleDiscountFields()">
+                                    <option value="none">Sin descuento</option>
+                                    <option value="percentage">Porcentaje %</option>
+                                    <option value="amount">Monto fijo $</option>
+                                </select>
+                            </div>
+                        </div>
 
-<div class="form-row" id="discountFields" style="display: none;">
-    <div class="form-group" id="percentageField">
-        <label>Descuento %</label>
-        <input type="number" id="productDiscountPercent" min="1" max="99" placeholder="20">
-    </div>
-    <div class="form-group" id="amountField"> 
-        <label>Descuento $</label>
-        <input type="number" id="productDiscountAmount" step="1" min="0" placeholder="5000">
-    </div>
-</div>
+                        <div class="form-row" id="discountFields" style="display: none;">
+                            <div class="form-group" id="percentageField">
+                                <label>Descuento %</label>
+                                <input type="number" id="productDiscountPercent" min="1" max="99" placeholder="20">
+                            </div>
+                            <div class="form-group" id="amountField">
+                                <label>Descuento $</label>
+                                <input type="number" id="productDiscountAmount" step="1" min="0" placeholder="5000">
+                            </div>
+                        </div>
 
-<div class="form-row">
-    <div class="form-group">
-        <label>Precio Final</label>
-        <input type="text" id="finalPrice" readonly placeholder="Se calculará automáticamente" style="background: #f5f5f5;">
-    </div>
-</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Precio Final</label>
+                                <input type="text" id="finalPrice" readonly placeholder="Se calculará automáticamente"
+                                    style="background: #f5f5f5;">
+                            </div>
+                        </div>
 
                         <div class="form-row">
                             <div class="form-group">
@@ -130,6 +147,21 @@
                                 <select id="productCategory" required>
                                     <option value="">Seleccionar categoría</option>
                                 </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Categoría *</label>
+                                    <select id="productCategory" required>
+                                        <option value="">Seleccionar categoría</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Marca</label>
+                                    <select id="productBrand">
+                                        <option value="">Sin marca</option>
+                                        <!-- Las marcas se cargarán dinámicamente -->
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Stock Disponible *</label>
@@ -158,12 +190,14 @@
 
                         <div class="form-group">
                             <label>Descripción del Producto *</label>
-                            <textarea id="productDescription" required rows="4" placeholder="Describe las características y beneficios del producto..."></textarea>
+                            <textarea id="productDescription" required rows="4"
+                                placeholder="Describe las características y beneficios del producto..."></textarea>
                         </div>
 
                         <div class="form-group">
                             <label>Ingredientes Principales</label>
-                            <textarea id="productIngredients" rows="3" placeholder="Lista los ingredientes principales..."></textarea>
+                            <textarea id="productIngredients" rows="3"
+                                placeholder="Lista los ingredientes principales..."></textarea>
                         </div>
 
                         <div class="form-group">
@@ -240,5 +274,7 @@
 
     <script src="../js/auth.js"></script>
     <script src="../js/admin-products.js"></script>
+    <script src="../js/theme-toggle.js"></script>
 </body>
+
 </html>
