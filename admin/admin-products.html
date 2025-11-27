@@ -86,157 +86,172 @@
             </div>
 
             <!-- Formulario de Producto -->
-            <div class="form-modal" id="productFormModal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 id="productFormTitle">Nuevo Producto</h3>
-                        <button class="close-modal" onclick="hideProductForm()">×</button>
+<div class="form-modal" id="productFormModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="productFormTitle">Nuevo Producto</h3>
+            <button class="close-modal" onclick="hideProductForm()">×</button>
+        </div>
+        <form id="productForm" enctype="multipart/form-data">
+            <input type="hidden" id="productId">
+            
+            <!-- INFORMACIÓN BÁSICA -->
+            <div class="form-section">
+                <h4>📋 Información Básica</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre del Producto *</label>
+                        <input type="text" id="productName" required placeholder="Ej: Shampoo Reparador Intenso">
                     </div>
-                    <form id="productForm" enctype="multipart/form-data">
-                        <input type="hidden" id="productId">
+                    <div class="form-group">
+                        <label>SKU (Código único) *</label>
+                        <input type="text" id="productSKU" required placeholder="Ej: SHR-001">
+                    </div>
+                </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Nombre del Producto *</label>
-                                <input type="text" id="productName" required
-                                    placeholder="Ej: Shampoo Reparador Intenso">
-                            </div>
-                            <div class="form-group">
-                                <label>SKU (Código único) *</label>
-                                <input type="text" id="productSKU" required placeholder="Ej: SHR-001">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Precio Normal *</label>
-                                <input type="number" id="productPrice" step="1" min="0" required placeholder="19990">
-                            </div>
-                            <div class="form-group">
-                                <label>Tipo de Descuento</label>
-                                <select id="discountType" onchange="toggleDiscountFields()">
-                                    <option value="none">Sin descuento</option>
-                                    <option value="percentage">Porcentaje %</option>
-                                    <option value="amount">Monto fijo $</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-row" id="discountFields" style="display: none;">
-                            <div class="form-group" id="percentageField">
-                                <label>Descuento %</label>
-                                <input type="number" id="productDiscountPercent" min="1" max="99" placeholder="20">
-                            </div>
-                            <div class="form-group" id="amountField">
-                                <label>Descuento $</label>
-                                <input type="number" id="productDiscountAmount" step="1" min="0" placeholder="5000">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Precio Final</label>
-                                <input type="text" id="finalPrice" readonly placeholder="Se calculará automáticamente"
-                                    style="background: #f5f5f5;">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Categoría *</label>
-                                <select id="productCategory" required>
-                                    <option value="">Seleccionar categoría</option>
-                                </select>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Categoría *</label>
-                                    <select id="productCategory" required>
-                                        <option value="">Seleccionar categoría</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Marca</label>
-                                    <select id="productBrand">
-                                        <option value="">Sin marca</option>
-                                        <!-- Las marcas se cargarán dinámicamente -->
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Stock Disponible *</label>
-                                <input type="number" id="productStock" required placeholder="0">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Peso/Cantidad</label>
-                                <div class="quantity-container">
-                                    <input type="number" id="productQuantity" step="0.01" placeholder="0">
-                                    <select id="productUnit">
-                                        <option value="ml">ml</option>
-                                        <option value="gr">gr</option>
-                                        <option value="unidad">unidad</option>
-                                        <option value="pack">pack</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Stock Mínimo</label>
-                                <input type="number" id="productMinStock" placeholder="5">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Descripción del Producto *</label>
-                            <textarea id="productDescription" required rows="4"
-                                placeholder="Describe las características y beneficios del producto..."></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Ingredientes Principales</label>
-                            <textarea id="productIngredients" rows="3"
-                                placeholder="Lista los ingredientes principales..."></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Modo de Uso</label>
-                            <textarea id="productUsage" rows="2" placeholder="Instrucciones de uso..."></textarea>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group checkbox-group">
-                                <input type="checkbox" id="productFeatured">
-                                <label for="productFeatured">Producto Destacado</label>
-                            </div>
-                            <div class="form-group checkbox-group">
-                                <input type="checkbox" id="productActive">
-                                <label for="productActive">Producto Activo</label>
-                            </div>
-                            <div class="form-group checkbox-group">
-                                <input type="checkbox" id="productTrackStock">
-                                <label for="productTrackStock">Controlar Stock</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Imagen del Producto</label>
-                            <div class="image-upload-container">
-                                <input type="file" id="productImage" accept="image/*" class="image-input">
-                                <div class="image-preview" id="imagePreview">
-                                    <span>📷 Haz clic para subir imagen</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-actions">
-                            <button type="button" class="btn-secondary" onclick="hideProductForm()">Cancelar</button>
-                            <button type="submit" class="btn-primary">Guardar Producto</button>
-                        </div>
-                    </form>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Categoría *</label>
+                        <select id="productCategory" required>
+                            <option value="">Seleccionar categoría</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Marca</label>
+                        <select id="productBrand">
+                            <option value="">Sin marca</option>
+                        </select>
+                    </div>
                 </div>
             </div>
+
+            <!-- PRECIOS Y DESCUENTOS -->
+            <div class="form-section">
+                <h4>💰 Precios</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Precio Normal *</label>
+                        <input type="number" id="productPrice" step="1" min="0" required placeholder="19990">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Descuento</label>
+                        <select id="discountType" onchange="toggleDiscountFields()">
+                            <option value="none">Sin descuento</option>
+                            <option value="percentage">Porcentaje %</option>
+                            <option value="amount">Monto fijo $</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" id="discountFields" style="display: none;">
+                    <div class="form-group" id="percentageField">
+                        <label>Descuento %</label>
+                        <input type="number" id="productDiscountPercent" min="1" max="99" placeholder="20">
+                    </div>
+                    <div class="form-group" id="amountField"> 
+                        <label>Descuento $</label>
+                        <input type="number" id="productDiscountAmount" step="1" min="0" placeholder="5000">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Precio Final</label>
+                        <input type="text" id="finalPrice" readonly placeholder="Se calculará automáticamente" style="background: var(--admin-bg);">
+                    </div>
+                </div>
+            </div>
+
+            <!-- INVENTARIO -->
+            <div class="form-section">
+                <h4>📦 Inventario</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Stock Disponible *</label>
+                        <input type="number" id="productStock" required placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Stock Mínimo</label>
+                        <input type="number" id="productMinStock" placeholder="5">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Peso/Cantidad</label>
+                        <div class="quantity-container">
+                            <input type="number" id="productQuantity" step="0.01" placeholder="0">
+                            <select id="productUnit">
+                                <option value="ml">ml</option>
+                                <option value="gr">gr</option>
+                                <option value="unidad">unidad</option>
+                                <option value="pack">pack</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DESCRIPCIÓN Y DETALLES -->
+            <div class="form-section">
+                <h4>📝 Descripción</h4>
+                <div class="form-group">
+                    <label>Descripción del Producto *</label>
+                    <textarea id="productDescription" required rows="4" placeholder="Describe las características y beneficios del producto..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Ingredientes Principales</label>
+                    <textarea id="productIngredients" rows="3" placeholder="Lista los ingredientes principales..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Modo de Uso</label>
+                    <textarea id="productUsage" rows="2" placeholder="Instrucciones de uso..."></textarea>
+                </div>
+            </div>
+
+            <!-- CONFIGURACIONES ADICIONALES -->
+            <div class="form-section">
+                <h4>⚙️ Configuraciones</h4>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="productFeatured">
+                        <label for="productFeatured">⭐ Producto Destacado</label>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="productActive" checked>
+                        <label for="productActive">✅ Producto Activo</label>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="productTrackStock" checked>
+                        <label for="productTrackStock">📊 Controlar Stock</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGEN -->
+            <div class="form-section">
+                <h4>🖼️ Imagen del Producto</h4>
+                <div class="form-group">
+                    <label>Imagen del Producto</label>
+                    <div class="image-upload-container">
+                        <input type="file" id="productImage" accept="image/*" class="image-input">
+                        <div class="image-preview" id="imagePreview">
+                            <span>📷 Haz clic para subir imagen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACCIONES -->
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="hideProductForm()">Cancelar</button>
+                <button type="submit" class="btn-primary">Guardar Producto</button>
+            </div>
+        </form>
+    </div>
+</div>
 
             <!-- Lista de Productos -->
             <div class="products-table-container">

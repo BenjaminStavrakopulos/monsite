@@ -1669,3 +1669,67 @@ textarea,
 a {
     color: inherit !important;
 }
+
+/* ========== MEJORAS PARA FORMULARIOS ========== */
+.form-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 1.5rem;
+}
+
+.form-section h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--admin-text);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--admin-accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Mejorar la legibilidad de los placeholders */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--admin-text-light);
+    opacity: 0.7;
+}
+
+/* Estilos para campos de solo lectura */
+.form-group input[readonly] {
+    background: var(--admin-bg) !important;
+    color: var(--admin-text-light) !important;
+    cursor: not-allowed;
+    border-color: var(--admin-border) !important;
+}
+
+/* Mejorar los selects */
+.form-group select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Estados de validación */
+.form-group input:invalid,
+.form-group select:invalid,
+.form-group textarea:invalid {
+    border-color: var(--admin-error) !important;
+}
+
+.form-group input:valid,
+.form-group select:valid,
+.form-group textarea:valid {
+    border-color: var(--admin-success) !important;
+}
